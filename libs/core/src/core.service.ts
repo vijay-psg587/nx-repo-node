@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class CoreService {
-    constructor() {
-        console.log('testing')
-    }
+	constructor() {
+		console.log('testing');
+	}
 }
