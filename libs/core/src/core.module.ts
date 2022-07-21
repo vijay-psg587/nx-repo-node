@@ -7,4 +7,4 @@ import { LoggerModule } from './logger/logger.module';
 	exports: [CoreService],
 	imports: [LoggerModule],
 })
-export class CoreModule {}
+    export class CoreModule {}
