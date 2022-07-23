@@ -1,0 +1,4 @@
+{
+	"APP_PORT": "<number>",
+	"APP_HOST": "string with the ip address representing the host"
+}

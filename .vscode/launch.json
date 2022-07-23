@@ -1,0 +1,21 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "sqModeule-debug",
+			"type": "pwa-node",
+			"request": "launch",
+			"skipFiles": ["<node_internals>/**", "node_modules/**"],
+			"cwd": "${workspaceRoot}/apps/sq-module",
+			"runtimeArgs": ["--require", "ts-node/register", "-r", "tsconfig-paths/register", "${workspaceRoot}/apps/sq-module/src/main.ts"],
+			"env": {
+				"NODE_LOCAL_DEV": "dev",
+				"TS_NODE_PROJECT": "${workspaceRoot}/apps/sq-module/tsconfig.json"
+			},
+			"envFile": "${workspaceFolder}/config/development/.env"
+		}
+	]
+}

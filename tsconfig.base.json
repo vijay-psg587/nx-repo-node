@@ -4,17 +4,21 @@
 		"rootDir": ".",
 		"sourceMap": true,
 		"declaration": false,
-		"moduleResolution": "node",
+		"target": "esnext",
+		"module": "commonjs",
+		"esModuleInterop": true,
+		"moduleResolution": "Node",
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"importHelpers": true,
-		"target": "es2015",
-		"module": "esnext",
-		"lib": ["es2017", "dom"],
+		"lib": ["ES2015", "es2017", "ES2022", "dom"],
 		"skipLibCheck": true,
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
-		"paths": {}
+		"paths": {
+			"@nest-sls-monorepo/common": ["libs/common/src/index.ts"]
+		}
 	},
+	"include": ["apps/**/*.ts", "libs/**/*.ts"],
 	"exclude": ["node_modules", "tmp"]
 }
