@@ -5,7 +5,8 @@ import * as dateFns from 'date-fns';
 import { ErrorTypeEnum } from '../../models/enums/error-type.enum';
 import { CustomErrorModel } from '../../models/errors/custom-error.model';
 import { CustomErrorModelBuilder } from '../../models/builder/custom-error-model.builder';
-
+import { LoggerService } from '../logger/logger.service';
+import * as pino from 'pino';
 @Injectable({ scope: Scope.DEFAULT })
 export class AppUtilService {
 	// constructor(){}
@@ -21,5 +22,14 @@ export class AppUtilService {
 	static createCustomError(errType: ErrorTypeEnum, message: string, code: number, status: string): CustomErrorModel {
 		const customModelBuilder = new CustomErrorModelBuilder();
 		return customModelBuilder.setCode(code).setErrorType(errType).setMessage(message).setStatus(status).setTz().build();
+	}
+
+
+	static getLogger(logLevel: pino.Level, contextId: string, name: string, msgKey: string, isLambda = false): pino.Logger {
+		if (logLevel === 'info') {
+			return LoggerService.fetchCustomizedLogger(logLevel, contextId, name, msgKey, process.stdout, isLambda);
+		} else if (logLevel === 'error') {
+			return LoggerService.fetchCustomizedLogger(logLevel,  contextId, name,msgKey,  process.stderr, isLambda);
+		}
 	}
 }

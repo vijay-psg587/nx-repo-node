@@ -6,6 +6,10 @@
 -   Create and populate secrets in github
 -   Add the provided github handler as colloborator to the project with Admin access
 
+### **Goal**
+> Aim is to deploy a simple lambda accessing dynamodb
+
+
 ### **Deployment**
 
 -   This app will be deployed as a docker container into a lambda
@@ -39,8 +43,23 @@
 
 -   Create the env variables in the desired location. You can follow the [template](./../../env-template/template.json)
 -   Make sure to populate `NODE_LOCAL_DEV` as dev for local testing
--   Run `npm run start:sq-Module`
--   To debug run `sqModule-debug` config in vscode. For other IDEs use your own configuration
+  
+  > **In Local**
+>-   Run `npm run start:sq-Module`
+>-   To debug run `sqModule-debug` config in vscode. For other IDEs use your own configuration
+
+
+> **Lambda Handler**
+>-   Use ```sq-module.handler```
+   
+> **Prerequisistes for LocalStack**
+>- First install localstack (this can be dockerized and used in your CI pipeline as well. Pro version is suggested)
+>- Start ```localstack start``` . Check status - ```localstack status services```
+>- Environment that can be configured - ```localstack config show```
+>- Create an aws profile and set all values as test - ```aws configure --profile localstack``` and make use of this profile in your current session ```export AWS_PROFILE=localstack``` 
+
+Refer[localstack readme](localstack_Readme.md)
+
 
 TODO:
 

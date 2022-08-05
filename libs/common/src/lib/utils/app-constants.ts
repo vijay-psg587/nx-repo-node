@@ -23,6 +23,11 @@ export const APP_CONST = {
 		DEFAULT_DATE_TIME_FORMAT: 'yyyy-MM-dd HH:mm:ss.SSSS',
 		DEFAULT_HOST: '127.0.0.1',
 		DEFAULT_PORT: 5000,
-		DEFAULT_TZ: 'Asia/Kolkatta',
+		DEFAULT_TZ: 'Asia/Kolkata',
+		LOCAL: {
+			AWS_PROFILE: 'localstack',
+			AWS_CRED_FILE_PATH: '~/.aws/credentials',
+			AWS_CONFIG_FILE_PATH: '~/.aws/config',
+		}
 	},
 };

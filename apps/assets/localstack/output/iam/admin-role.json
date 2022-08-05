@@ -1,0 +1,20 @@
+{
+    "Role": {
+        "Path": "/",
+        "RoleName": "lstack_Admin_new",
+        "RoleId": "p22eqin5hv89ti3entju",
+        "Arn": "arn:aws:iam::000000000000:role/lstack_Admin_new",
+        "CreateDate": "2022-08-03T03:16:24.062000+00:00",
+        "AssumeRolePolicyDocument": {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Effect": "Allow",
+                    "Action": "*",
+                    "Resource": "*"
+                }
+            ]
+        },
+        "MaxSessionDuration": 3600
+    }
+}
