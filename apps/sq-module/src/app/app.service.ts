@@ -14,8 +14,6 @@ export class AppService {
 	errorLogger: pino.Logger;
 	debugLogger: pino.Logger;
 	constructor(@Inject(REQUEST) private context: Context, private iamService: IamService, private dyService: DynamodbService, @Inject(INQUIRER) private parentClass: object) {
-		console.log('contex:', context);
-		console.log('parentClass:', parentClass);
 		this.infoLogger = AppUtilService.getLogger('info', context?.clientContext?.Custom?.name, '', SQ_CONST.COMMON.APP_PREFIX);
 		this.errorLogger = AppUtilService.getLogger('error', context?.clientContext?.Custom?.name, 'ctx.getClass().name', SQ_CONST.COMMON.APP_PREFIX);
 		this.debugLogger = AppUtilService.getLogger('debug', context?.clientContext?.Custom?.name, 'ctx.getClass().name', SQ_CONST.COMMON.APP_PREFIX);
@@ -51,10 +49,7 @@ export class AppService {
 	}
 	@LoggingDecorator('describeTable', 'UserService')
 	async describeDynamoDbTable() {
-		const re = await this.dyService.describeTable('loc_table').catch((err) => {
-			console.log('err', err);
-		});
-		console.log('re:', re);
+		await this.dyService.describeTable('loc_table');
 	}
 }
 function CONTEXT(CONTEXT: any) {

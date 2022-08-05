@@ -28,6 +28,6 @@ export const APP_CONST = {
 			AWS_PROFILE: 'localstack',
 			AWS_CRED_FILE_PATH: '~/.aws/credentials',
 			AWS_CONFIG_FILE_PATH: '~/.aws/config',
-		}
+		},
 	},
 };

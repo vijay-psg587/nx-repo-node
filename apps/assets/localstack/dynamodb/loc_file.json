@@ -1,88 +1,85 @@
 {
-    "AttributeDefinitions": [
-    {
-        "AttributeName": "b_center_id", 
-        "AttributeType": "N"
-    }, 
-    {
-        "AttributeName": "b_loc_county", 
-        "AttributeType": "S"
-    },
-    {
-        "AttributeName": "b_loc_addr1", 
-        "AttributeType": "S"
-    },
-    {
-        "AttributeName": "b_loc_addr2", 
-        "AttributeType": "S"
-    },
-    {
-        "AttributeName": "b_loc_state", 
-        "AttributeType": "S"
-    },
-    {
-        "AttributeName": "b_loc_pin", 
-        "AttributeType": "N"
-    }
-    ], 
-        "GlobalSecondaryIndexes": [
-        {
-            "IndexName": "b_loc_pin_index", 
-            "Projection": {
-                "ProjectionType": "ALL"
-            }, 
-            "ProvisionedThroughput": {
-                "WriteCapacityUnits": 5,
-                "ReadCapacityUnits": 5
-            }, 
-            "KeySchema": [
-                {
-                    "KeyType": "HASH", 
-                    "AttributeName": "b_loc_pin"
-                },
-                {
-                    "KeyType":"RANGE",
-                    "AttributeName":"b_loc_county"
-                }
-                
-            ]
-        },
-        {
-            "IndexName": "b_loc_addr_index", 
-            "Projection": {
-                "ProjectionType": "ALL"
-            }, 
-            "ProvisionedThroughput": {
-                "WriteCapacityUnits": 5,
-                "ReadCapacityUnits": 5
-            }, 
-            "KeySchema": [
-                {
-                    "KeyType": "HASH", 
-                    "AttributeName": "b_loc_addr1"
-                },
-                {
-                    "KeyType":"RANGE",
-                    "AttributeName":"b_loc_addr2"
-                }
-                
-            ]
-        }
-    ], 
-        "ProvisionedThroughput": {
-            "WriteCapacityUnits": 5, 
-            "ReadCapacityUnits": 5
-        }, 
-        "TableName": "loc_table", 
-        "KeySchema": [
-        {
-            "KeyType": "HASH", 
-            "AttributeName": "b_center_id"
-        },
-        {
-            "KeyType": "RANGE", 
-            "AttributeName": "b_loc_state"
-        }
-
-    ]
+	"AttributeDefinitions": [
+		{
+			"AttributeName": "b_center_id",
+			"AttributeType": "N"
+		},
+		{
+			"AttributeName": "b_loc_county",
+			"AttributeType": "S"
+		},
+		{
+			"AttributeName": "b_loc_addr1",
+			"AttributeType": "S"
+		},
+		{
+			"AttributeName": "b_loc_addr2",
+			"AttributeType": "S"
+		},
+		{
+			"AttributeName": "b_loc_state",
+			"AttributeType": "S"
+		},
+		{
+			"AttributeName": "b_loc_pin",
+			"AttributeType": "N"
+		}
+	],
+	"GlobalSecondaryIndexes": [
+		{
+			"IndexName": "b_loc_pin_index",
+			"Projection": {
+				"ProjectionType": "ALL"
+			},
+			"ProvisionedThroughput": {
+				"WriteCapacityUnits": 5,
+				"ReadCapacityUnits": 5
+			},
+			"KeySchema": [
+				{
+					"KeyType": "HASH",
+					"AttributeName": "b_loc_pin"
+				},
+				{
+					"KeyType": "RANGE",
+					"AttributeName": "b_loc_county"
+				}
+			]
+		},
+		{
+			"IndexName": "b_loc_addr_index",
+			"Projection": {
+				"ProjectionType": "ALL"
+			},
+			"ProvisionedThroughput": {
+				"WriteCapacityUnits": 5,
+				"ReadCapacityUnits": 5
+			},
+			"KeySchema": [
+				{
+					"KeyType": "HASH",
+					"AttributeName": "b_loc_addr1"
+				},
+				{
+					"KeyType": "RANGE",
+					"AttributeName": "b_loc_addr2"
+				}
+			]
+		}
+	],
+	"ProvisionedThroughput": {
+		"WriteCapacityUnits": 5,
+		"ReadCapacityUnits": 5
+	},
+	"TableName": "loc_table",
+	"KeySchema": [
+		{
+			"KeyType": "HASH",
+			"AttributeName": "b_center_id"
+		},
+		{
+			"KeyType": "RANGE",
+			"AttributeName": "b_loc_state"
+		}
+	]
 }

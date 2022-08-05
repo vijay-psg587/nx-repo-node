@@ -6,9 +6,6 @@ import 'reflect-metadata';
 import { ErrorTypeEnum } from 'libs/common/src/lib/models/enums/error-type.enum';
 export function LoggingDecorator(methodName: string, className: string) {
 	return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-		console.log('target:', target);
-		console.log('propertyKry', propertyKey);
-		console.log(descriptor.value);
 		const infoLogger = AppUtilService.getLogger('info', 'contextId', methodName, 'sq-module', false);
 		const errLogger = AppUtilService.getLogger('error', 'contextId', methodName, 'sq-module', false);
 		// const debugLogger = AppUtilService.getLogger("debug", "contexId")
@@ -22,7 +19,6 @@ export function LoggingDecorator(methodName: string, className: string) {
 				infoLogger.info(`End of the execution:class:${className}:method:${methodName} - Execution time: ${finish - start} milliseconds`);
 				return Promise.resolve(result);
 			} catch (err) {
-				console.log('#######-Error caught in logging decorator #######');
 				const customErr = AppUtilService.createCustomError(ErrorTypeEnum.INTERNAL_SERVER_ERROR, err.message, 500, '500');
 				errLogger.error(`Error in the class:${className}:method:${methodName}:args:${args}: error: ${customErr}`);
 				return Promise.reject(customErr);

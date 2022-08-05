@@ -1,93 +1,93 @@
 {
-    "TableDescription": {
-        "AttributeDefinitions": [
-            {
-                "AttributeName": "b_center_id",
-                "AttributeType": "N"
-            },
-            {
-                "AttributeName": "b_loc_county",
-                "AttributeType": "S"
-            },
-            {
-                "AttributeName": "b_loc_addr1",
-                "AttributeType": "S"
-            },
-            {
-                "AttributeName": "b_loc_addr2",
-                "AttributeType": "S"
-            },
-            {
-                "AttributeName": "b_loc_state",
-                "AttributeType": "S"
-            },
-            {
-                "AttributeName": "b_loc_pin",
-                "AttributeType": "N"
-            }
-        ],
-        "TableName": "loc_table",
-        "KeySchema": [
-            {
-                "AttributeName": "b_center_id",
-                "KeyType": "HASH"
-            },
-            {
-                "AttributeName": "b_loc_state",
-                "KeyType": "RANGE"
-            }
-        ],
-        "TableStatus": "ACTIVE",
-        "CreationDateTime": "2022-08-03T08:45:31.052000+05:30",
-        "ProvisionedThroughput": {
-            "ReadCapacityUnits": 5,
-            "WriteCapacityUnits": 5
-        },
-        "TableSizeBytes": 0,
-        "ItemCount": 0,
-        "TableArn": "arn:aws:dynamodb:us-east-1:000000000000:table/loc_table",
-        "TableId": "883501d8-47ed-4f5f-af1d-8dff9786e688",
-        "GlobalSecondaryIndexes": [
-            {
-                "IndexName": "b_loc_pin_index",
-                "KeySchema": [
-                    {
-                        "AttributeName": "b_loc_pin",
-                        "KeyType": "HASH"
-                    },
-                    {
-                        "AttributeName": "b_loc_county",
-                        "KeyType": "RANGE"
-                    }
-                ],
-                "Projection": {
-                    "ProjectionType": "ALL"
-                },
-                "ProvisionedThroughput": {
-                    "ReadCapacityUnits": 5,
-                    "WriteCapacityUnits": 5
-                }
-            },
-            {
-                "IndexName": "b_loc_addr_index",
-                "KeySchema": [
-                    {
-                        "AttributeName": "b_loc_addr1",
-                        "KeyType": "HASH"
-                    },
-                    {
-                        "AttributeName": "b_loc_addr2",
-                        "KeyType": "RANGE"
-                    }
-                ],
-                "Projection": {
-                    "ProjectionType": "ALL"
-                },
-                "ProvisionedThroughput": {
-                    "ReadCapacityUnits": 5,
-                    "WriteCapacityUnits": 5
-                }
-            }
-        ]
-    }
+	"TableDescription": {
+		"AttributeDefinitions": [
+			{
+				"AttributeName": "b_center_id",
+				"AttributeType": "N"
+			},
+			{
+				"AttributeName": "b_loc_county",
+				"AttributeType": "S"
+			},
+			{
+				"AttributeName": "b_loc_addr1",
+				"AttributeType": "S"
+			},
+			{
+				"AttributeName": "b_loc_addr2",
+				"AttributeType": "S"
+			},
+			{
+				"AttributeName": "b_loc_state",
+				"AttributeType": "S"
+			},
+			{
+				"AttributeName": "b_loc_pin",
+				"AttributeType": "N"
+			}
+		],
+		"TableName": "loc_table",
+		"KeySchema": [
+			{
+				"AttributeName": "b_center_id",
+				"KeyType": "HASH"
+			},
+			{
+				"AttributeName": "b_loc_state",
+				"KeyType": "RANGE"
+			}
+		],
+		"TableStatus": "ACTIVE",
+		"CreationDateTime": "2022-08-03T08:45:31.052000+05:30",
+		"ProvisionedThroughput": {
+			"ReadCapacityUnits": 5,
+			"WriteCapacityUnits": 5
+		},
+		"TableSizeBytes": 0,
+		"ItemCount": 0,
+		"TableArn": "arn:aws:dynamodb:us-east-1:000000000000:table/loc_table",
+		"TableId": "883501d8-47ed-4f5f-af1d-8dff9786e688",
+		"GlobalSecondaryIndexes": [
+			{
+				"IndexName": "b_loc_pin_index",
+				"KeySchema": [
+					{
+						"AttributeName": "b_loc_pin",
+						"KeyType": "HASH"
+					},
+					{
+						"AttributeName": "b_loc_county",
+						"KeyType": "RANGE"
+					}
+				],
+				"Projection": {
+					"ProjectionType": "ALL"
+				},
+				"ProvisionedThroughput": {
+					"ReadCapacityUnits": 5,
+					"WriteCapacityUnits": 5
+				}
+			},
+			{
+				"IndexName": "b_loc_addr_index",
+				"KeySchema": [
+					{
+						"AttributeName": "b_loc_addr1",
+						"KeyType": "HASH"
+					},
+					{
+						"AttributeName": "b_loc_addr2",
+						"KeyType": "RANGE"
+					}
+				],
+				"Projection": {
+					"ProjectionType": "ALL"
+				},
+				"ProvisionedThroughput": {
+					"ReadCapacityUnits": 5,
+					"WriteCapacityUnits": 5
+				}
+			}
+		]
+	}
 }

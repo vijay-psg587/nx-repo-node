@@ -8,7 +8,6 @@ import { AppUtilService } from 'libs/common/src/lib/services/app-util/app-util.s
 @Catch()
 export class CustomExceptionFilter<T> implements ExceptionFilter {
 	catch(exception: T, host: ArgumentsHost) {
-		console.log('host type jere:', host.getType());
 		if (exception instanceof CustomErrorModel) {
 			// we are already good with what we have, just send it out
 			return exception;

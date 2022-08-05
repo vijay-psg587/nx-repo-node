@@ -12,7 +12,7 @@
 			"cwd": "${workspaceRoot}/apps/sq-module",
 			"runtimeArgs": ["--require", "ts-node/register", "-r", "tsconfig-paths/register", "${workspaceRoot}/apps/sq-module/src/main.ts"],
 			"env": {
-				"NODE_LOCAL_ENV":"dev",
+				"NODE_LOCAL_ENV": "dev",
 				"TS_NODE_PROJECT": "${workspaceRoot}/apps/sq-module/tsconfig.json"
 			},
 			"envFile": "${workspaceFolder}/config/development/.env"

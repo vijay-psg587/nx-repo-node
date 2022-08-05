@@ -24,12 +24,11 @@ export class AppUtilService {
 		return customModelBuilder.setCode(code).setErrorType(errType).setMessage(message).setStatus(status).setTz().build();
 	}
 
-
 	static getLogger(logLevel: pino.Level, contextId: string, name: string, msgKey: string, isLambda = false): pino.Logger {
 		if (logLevel === 'info') {
 			return LoggerService.fetchCustomizedLogger(logLevel, contextId, name, msgKey, process.stdout, isLambda);
 		} else if (logLevel === 'error') {
-			return LoggerService.fetchCustomizedLogger(logLevel,  contextId, name,msgKey,  process.stderr, isLambda);
+			return LoggerService.fetchCustomizedLogger(logLevel, contextId, name, msgKey, process.stderr, isLambda);
 		}
 	}
 }

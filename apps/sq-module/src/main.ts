@@ -16,7 +16,7 @@ export async function bootstrap() {
 		await app.select(CommonModule).get(AppConfigService);
 		app.useLogger(false);
 		const appConfigModel = AppConfigService.getAppConfigModel();
-		console.log('POrt', appConfigModel.port);
+
 		const contextId = ContextIdFactory.create();
 		// Use this context object in all required places by Importing as Context
 		const context: Context = {
