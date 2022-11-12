@@ -1,18 +1,18 @@
 import { Context, APIGatewayProxyCallback, APIGatewayEvent } from 'aws-lambda';
 import { DynamoDBClient, paginateListTables } from '@aws-sdk/client-dynamodb';
-import { bootstrap } from './main';
+import { bootstrap } from '../../main';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { AppConfigService } from 'libs/common/src/lib/services/app-config/app-config.service';
+import { AppConfigService } from '@nest-sls-monorepo/common';
 import { INestApplicationContext } from '@nestjs/common';
 
-import { AppService } from './app/app.service';
+import { AppService } from '../app.service';
 import { ContextIdFactory } from '@nestjs/core';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { CustomErrorModel } from 'libs/common/src/lib/models/errors/custom-error.model';
+import { CustomErrorModel } from '@nest-sls-monorepo/common';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { AppUtilService } from 'libs/common/src/lib/services/app-util/app-util.service';
+import { AppUtilService } from '@nest-sls-monorepo/common';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { ErrorTypeEnum } from 'libs/common/src/lib/models/enums/error-type.enum';
+import { ErrorTypeEnum } from '@nest-sls-monorepo/common';
 
 export const lambdaHandler = async (event: APIGatewayEvent, context: Context, callback: APIGatewayProxyCallback) => {
 	console.log(`Event: ${JSON.stringify(event, null, 2)}`);
@@ -31,7 +31,7 @@ export const lambdaHandler = async (event: APIGatewayEvent, context: Context, ca
 		console.log('POrt', appConfigModel.port);
 		const appService = await app.resolve<AppService>(AppService, contextId);
 		appService.getData();
-		appService.getTableList();
+		appService.listAllIamRoles();
 		// call to aws ssm param store to get environment vars
 		// get aws ssm param
 		// call GithubAPI

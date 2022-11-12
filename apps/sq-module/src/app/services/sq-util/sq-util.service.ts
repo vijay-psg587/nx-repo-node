@@ -1,10 +1,10 @@
 import { Injectable, Scope } from '@nestjs/common';
 import { defaultProvider } from '@aws-sdk/credential-provider-node';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { AppUtilService } from 'libs/common/src/lib/services/app-util/app-util.service';
+import { AppUtilService } from '@nest-sls-monorepo/common';
 import { AWSCredConfigModel } from '../../models/aws-cred-config.model';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { APP_CONST } from 'libs/common/src/lib/utils/app-constants';
+import { APP_CONST } from '@nest-sls-monorepo/common';
 import * as fs from 'fs';
 import * as path from 'path';
 @Injectable({ scope: Scope.DEFAULT })

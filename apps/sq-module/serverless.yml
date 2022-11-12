@@ -1,0 +1,38 @@
+service: sq-module-service
+
+custom:
+  FUNC_NAME: ${env:FUNC_NAME, 'SQ_MODULE_FUNC'}
+  STAGE: ${opt:stage, 'DEV'}
+  EPHEMERAL_SIZE: ${env:LAMBDA_EPHEMERALSIZE, 1024}
+  SSMSECRETS: ${ssm:/aws/reference/secretsmanager/test/monorepo/sq-module}
+  PROFILE: ${env:AWS_PROFILE, 'serverless'}
+  ENVIRONMENT: ${env:TAG_ENV, 'SANDBOX'}
+  REGION: ${env:AWS_REGION, 'us-east-1'}
+provider:
+  name: aws
+  region: ${self:custom.REGION}
+  runtime: nodejs14.x
+  memorySize: 3008
+  profile: ${self:custom.PROFILE}
+  tags:
+    createdBy: Vijay
+    Environment: ${self:custom.ENVIRONMENT}
+# !!Creating and Uploading docker image can be taken care by your CI
+# !!We are using serverless for the CD part
+
+
+package:
+  individually: true
+
+# !! Provide the imageUri here, remember that the aws user executing should have read ECR permissions for this
+# !! Also replace this with proper image name in CircleCi with bash script. For now adding the image name manually
+functions:
+  sq-module-func:
+    #image: #imageURI
+    name: ${self:custom.FUNC_NAME}_lambda
+    image: 555726677657.dkr.ecr.us-east-1.amazonaws.com/sq-module:latest
+    environment:
+      APP_PORT: ${self:custom.SSMSECRETS.APP_PORT}
+      APP_NAME: ${self:custom.SSMSECRETS.APP_NAME} #!! Environment from SSM
+    ephemeralStorageSize: ${self:custom.EPHEMERAL_SIZE} # !! Again this can be dynamic, its the choice we can make
+    logRetentionInDays: 14

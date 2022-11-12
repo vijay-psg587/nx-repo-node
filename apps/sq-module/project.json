@@ -6,13 +6,16 @@
 		"build": {
 			"executor": "@nrwl/node:webpack",
 			"outputs": ["{options.outputPath}"],
+
 			"options": {
+        "webpackConfig": "apps/sq-module/webpack-build.config.js",
 				"outputPath": "dist/apps/sq-module",
-				"main": "apps/sq-module/src/main.ts",
+				"main": "apps/sq-module/src/app/handler/sq-module-handler.ts",
 				"tsConfig": "apps/sq-module/tsconfig.app.json",
 				"assets": ["apps/sq-module/src/assets"]
 			},
 			"configurations": {
+
 				"production": {
 					"optimization": true,
 					"extractLicenses": true,
@@ -27,6 +30,9 @@
 			}
 		},
 		"serve": {
+
+      "webpackConfig": "apps/sq-module/webpack.config.js",
+
 			"executor": "@nrwl/node:node",
 			"options": {
 				"buildTarget": "sq-module:build"

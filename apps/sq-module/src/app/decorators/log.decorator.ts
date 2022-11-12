@@ -1,9 +1,9 @@
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { AppUtilService } from 'libs/common/src/lib/services/app-util/app-util.service';
+import { AppUtilService } from '@nest-sls-monorepo/common';
 import 'reflect-metadata';
 
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { ErrorTypeEnum } from 'libs/common/src/lib/models/enums/error-type.enum';
+import { ErrorTypeEnum } from '@nest-sls-monorepo/common';
 export function LoggingDecorator(methodName: string, className: string) {
 	return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
 		const infoLogger = AppUtilService.getLogger('info', 'contextId', methodName, 'sq-module', false);
@@ -20,7 +20,7 @@ export function LoggingDecorator(methodName: string, className: string) {
 				return Promise.resolve(result);
 			} catch (err) {
 				const customErr = AppUtilService.createCustomError(ErrorTypeEnum.INTERNAL_SERVER_ERROR, err.message, 500, '500');
-				errLogger.error(`Error in the class:${className}:method:${methodName}:args:${args}: error: ${customErr}`);
+				errLogger.error(`Error in the class:${className}:method:${methodName}:args:${args}: error: ${JSON.stringify(customErr)}`);
 				return Promise.reject(customErr);
 			}
 		};

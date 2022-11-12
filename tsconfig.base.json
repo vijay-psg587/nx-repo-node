@@ -3,13 +3,15 @@
 	"compilerOptions": {
 		"rootDir": ".",
 		"sourceMap": true,
-		"declaration": false,
+   		"outDir": "../../dist/out-tsc",
+		"declaration": true, // enable this to have .d.ts files generated -  emitDeclarationOnly prop cannot be used without this
 		"target": "esnext",
 		"module": "commonjs",
 		"esModuleInterop": true,
 		"moduleResolution": "Node",
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
+   		"emitDeclarationOnly": true,
 		"importHelpers": true,
 		"lib": ["ES2015", "es2017", "ES2022", "dom"],
 		"skipLibCheck": true,

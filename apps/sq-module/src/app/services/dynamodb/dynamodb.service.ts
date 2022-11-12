@@ -1,11 +1,11 @@
 import { DescribeTableCommand, DescribeTableCommandOutput, DynamoDB, ListTablesCommand, ListTablesCommandOutput } from '@aws-sdk/client-dynamodb';
 import { Inject, Injectable } from '@nestjs/common';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { ErrorTypeEnum } from 'libs/common/src/lib/models/enums/error-type.enum';
+import { ErrorTypeEnum } from '@nest-sls-monorepo/common';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { CustomErrorModel } from 'libs/common/src/lib/models/errors/custom-error.model';
+import { CustomErrorModel } from '@nest-sls-monorepo/common';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { AppUtilService } from 'libs/common/src/lib/services/app-util/app-util.service';
+import { AppUtilService } from '@nest-sls-monorepo/common';
 import { LoggingDecorator } from '../../decorators/log.decorator';
 import { AWSClientService } from '../aws-client/aws-client.service';
 import { REQUEST } from '@nestjs/core';

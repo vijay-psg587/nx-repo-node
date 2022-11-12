@@ -1,6 +1,7 @@
 # common
 
 This library was that will be common for both sqModule and the graphQL module
+This was created with nx again -  ```nx g @nrwl/workspace:lib common```
 
 ## **Patterns**
 

@@ -1,9 +1,9 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { ArgumentsHost, Catch, ExceptionFilter } from '@nestjs/common';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { ErrorTypeEnum } from 'libs/common/src/lib/models/enums/error-type.enum';
-import { CustomErrorModel } from 'libs/common/src/lib/models/errors/custom-error.model';
-import { AppUtilService } from 'libs/common/src/lib/services/app-util/app-util.service';
+import { ErrorTypeEnum } from '@nest-sls-monorepo/common';
+import { CustomErrorModel } from '@nest-sls-monorepo/common';
+import { AppUtilService } from '@nest-sls-monorepo/common';
 
 @Catch()
 export class CustomExceptionFilter<T> implements ExceptionFilter {

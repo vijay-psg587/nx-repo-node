@@ -1,6 +1,6 @@
 import { ExecutionContext, Inject, Injectable, Scope } from '@nestjs/common';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { AppUtilService } from 'libs/common/src/lib/services/app-util/app-util.service';
+import { AppUtilService } from '@nest-sls-monorepo/common';
 import { LoggingDecorator } from './decorators/log.decorator';
 import { DynamodbService } from './services/dynamodb/dynamodb.service';
 import pino from 'pino';
@@ -39,7 +39,7 @@ export class AppService {
 			this.errorLogger.error(err, err.message);
 			throw err;
 		});
-		this.infoLogger.info(`Obtained table list:`, iamUsers);
+		this.infoLogger.info(`Obtained iam users list:`, iamUsers);
 		return iamUsers;
 	}
 

@@ -1,0 +1,27 @@
+FROM public.ecr.aws/lambda/nodejs:14
+
+ARG APP_NAME=${APP_NAME:-"sq-module"}
+ARG APP_DIR=${APP_DIR:-"apps"}
+ARG LIB_DIR=${LIB_DIR:-"libs"}
+ARG NODE_LOCAL_ENV=${NODE_LOCAL_DEV:-"DEPLOYMENT"}
+ENV NODE_LOCAL_ENV=${NODE_LOCAL_ENV}
+
+ARG FUNCTION_DIR="sq-module"
+
+RUN mkdir -p ${FUNCTION_DIR}/${LIB_DIR}
+RUN mkdir -p ${FUNCTION_DIR}/${APP_DIR}/${APP_NAME}
+# Let nx build you app -  it has the webpack already installed
+COPY ${APP_DIR}/${APP_NAME}/ /${FUNCTION_DIR}/${APP_DIR}/${APP_NAME}/
+COPY package*.json /${FUNCTION_DIR}/
+COPY tsconfig*.json /${FUNCTION_DIR}/
+COPY jest*.* /${FUNCTION_DIR}/
+COPY workspace.json /${FUNCTION_DIR}/
+COPY nx.json /${FUNCTION_DIR}/
+COPY nest-cli.json /${FUNCTION_DIR}/
+COPY libs/ ${FUNCTION_DIR}/${LIB_DIR}/
+
+RUN ls -la ${FUNCTION_DIR}/
+#RUN npm install
+
+CMD [ "${FUNCTION_DIR}/dist/apps/sq-module/main.lambdaHandler" ]
+
