@@ -17,6 +17,7 @@ node_modules
 .settings/
 *.sublime-workspace
 config/
+package-lock.json
 
 # IDE - VSCode
 .vscode/*

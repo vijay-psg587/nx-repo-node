@@ -36,16 +36,14 @@ functions:
         ephemeralStorageSize: ${self:custom.EPHEMERAL_SIZE} # !! Again this can be dynamic, its the choice we can make
         logRetentionInDays: 14
     handler:
-      handler: functions/handler.handler
-      description: function description
-      runtime: nodejs14.x
-      memorySize: 128
-      timeout: 3
-      events:
-       - http:
-           path: path for endpoint
-           method: post
-           cors: true
-           private: true
-       
-        
+        handler: functions/handler.handler
+        description: function description
+        runtime: nodejs14.x
+        memorySize: 128
+        timeout: 3
+        events:
+            - http:
+                  path: path for endpoint
+                  method: post
+                  cors: true
+                  private: true
