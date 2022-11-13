@@ -1,21 +1,22 @@
 {
+	"name": "sq-module",
 	"$schema": "../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "apps/sq-module/src",
 	"projectType": "application",
 	"targets": {
 		"build": {
-			"executor": "@nrwl/node:webpack",
+			"executor": "@nrwl/webpack:webpack",
 			"outputs": ["{options.outputPath}"],
-
 			"options": {
-        "webpackConfig": "apps/sq-module/webpack-build.config.js",
+				"webpackConfig": "apps/sq-module/webpack-build.config.js",
 				"outputPath": "dist/apps/sq-module",
 				"main": "apps/sq-module/src/app/handler/sq-module-handler.ts",
 				"tsConfig": "apps/sq-module/tsconfig.app.json",
-				"assets": ["apps/sq-module/src/assets"]
+				"assets": ["apps/sq-module/src/assets"],
+				"target": "node",
+				"compiler": "tsc"
 			},
 			"configurations": {
-
 				"production": {
 					"optimization": true,
 					"extractLicenses": true,
@@ -30,9 +31,7 @@
 			}
 		},
 		"serve": {
-
-      "webpackConfig": "apps/sq-module/webpack.config.js",
-
+			"webpackConfig": "apps/sq-module/webpack.config.js",
 			"executor": "@nrwl/node:node",
 			"options": {
 				"buildTarget": "sq-module:build"
@@ -52,7 +51,7 @@
 		},
 		"test": {
 			"executor": "@nrwl/jest:jest",
-			"outputs": ["coverage/apps/sq-module"],
+			"outputs": ["{workspaceRoot}/coverage/apps/sq-module"],
 			"options": {
 				"jestConfig": "apps/sq-module/jest.config.ts",
 				"passWithNoTests": true

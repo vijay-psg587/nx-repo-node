@@ -1,6 +1,14 @@
 # NestSlsMonorepo
 
-This project was generated using [Nx](https://nx.dev). 
+This project was generated using [Nx](https://nx.dev).
+
+## NX
+
+ - Updated to latest version
+ - `sq-module`  - simple client implementation of aws dynamoDB -  Can be deployed as serverless lambda
+ - `mongo-graphql` - simple graphql implementation that runs in ECS (YET to be implemented)
+ - `common` to be used across sq-module and `mongo-graphql`
+Refer their respective README.md files for details
 
 ## Settings
 

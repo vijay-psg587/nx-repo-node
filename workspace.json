@@ -3,6 +3,7 @@
 	"version": 2,
 	"projects": {
 		"common": "libs/common",
+		"mongo-graphql": "apps/mongo-graphql",
 		"sq-module": "apps/sq-module"
 	}
 }

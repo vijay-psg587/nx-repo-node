@@ -1,0 +1,60 @@
+{
+	"name": "mongo-graphql",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "apps/mongo-graphql/src",
+	"projectType": "application",
+	"targets": {
+		"build": {
+			"executor": "@nrwl/webpack:webpack",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"target": "node",
+				"compiler": "tsc",
+				"outputPath": "dist/apps/mongo-graphql",
+				"main": "apps/mongo-graphql/src/main.ts",
+				"tsConfig": "apps/mongo-graphql/tsconfig.app.json",
+				"assets": ["apps/mongo-graphql/src/assets"]
+			},
+			"configurations": {
+				"production": {
+					"optimization": true,
+					"extractLicenses": true,
+					"inspect": false,
+					"fileReplacements": [
+						{
+							"replace": "apps/mongo-graphql/src/environments/environment.ts",
+							"with": "apps/mongo-graphql/src/environments/environment.prod.ts"
+						}
+					]
+				}
+			}
+		},
+		"serve": {
+			"executor": "@nrwl/js:node",
+			"options": {
+				"buildTarget": "mongo-graphql:build"
+			},
+			"configurations": {
+				"production": {
+					"buildTarget": "mongo-graphql:build:production"
+				}
+			}
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": ["apps/mongo-graphql/**/*.ts"]
+			}
+		},
+		"test": {
+			"executor": "@nrwl/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "apps/mongo-graphql/jest.config.ts",
+				"passWithNoTests": true
+			}
+		}
+	},
+	"tags": ["mongo-graphql"]
+}

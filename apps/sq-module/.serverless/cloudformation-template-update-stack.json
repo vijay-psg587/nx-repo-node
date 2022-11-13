@@ -1,228 +1,207 @@
 {
-  "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "The AWS CloudFormation template for this Serverless application",
-  "Resources": {
-    "ServerlessDeploymentBucket": {
-      "Type": "AWS::S3::Bucket",
-      "Properties": {
-        "BucketEncryption": {
-          "ServerSideEncryptionConfiguration": [
-            {
-              "ServerSideEncryptionByDefault": {
-                "SSEAlgorithm": "AES256"
-              }
-            }
-          ]
-        }
-      }
-    },
-    "ServerlessDeploymentBucketPolicy": {
-      "Type": "AWS::S3::BucketPolicy",
-      "Properties": {
-        "Bucket": {
-          "Ref": "ServerlessDeploymentBucket"
-        },
-        "PolicyDocument": {
-          "Statement": [
-            {
-              "Action": "s3:*",
-              "Effect": "Deny",
-              "Principal": "*",
-              "Resource": [
-                {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:",
-                      {
-                        "Ref": "AWS::Partition"
-                      },
-                      ":s3:::",
-                      {
-                        "Ref": "ServerlessDeploymentBucket"
-                      },
-                      "/*"
-                    ]
-                  ]
-                },
-                {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:",
-                      {
-                        "Ref": "AWS::Partition"
-                      },
-                      ":s3:::",
-                      {
-                        "Ref": "ServerlessDeploymentBucket"
-                      }
-                    ]
-                  ]
-                }
-              ],
-              "Condition": {
-                "Bool": {
-                  "aws:SecureTransport": false
-                }
-              }
-            }
-          ]
-        }
-      }
-    },
-    "SqDashmoduleDashfuncLogGroup": {
-      "Type": "AWS::Logs::LogGroup",
-      "Properties": {
-        "LogGroupName": "/aws/lambda/sq_mod_func_lambda",
-        "RetentionInDays": 14
-      }
-    },
-    "IamRoleLambdaExecution": {
-      "Type": "AWS::IAM::Role",
-      "Properties": {
-        "AssumeRolePolicyDocument": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Principal": {
-                "Service": [
-                  "lambda.amazonaws.com"
-                ]
-              },
-              "Action": [
-                "sts:AssumeRole"
-              ]
-            }
-          ]
-        },
-        "Policies": [
-          {
-            "PolicyName": {
-              "Fn::Join": [
-                "-",
-                [
-                  "sq-module-service",
-                  "dev",
-                  "lambda"
-                ]
-              ]
-            },
-            "PolicyDocument": {
-              "Version": "2012-10-17",
-              "Statement": [
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "logs:CreateLogStream",
-                    "logs:CreateLogGroup"
-                  ],
-                  "Resource": [
-                    {
-                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/sq_mod_func_lambda:*"
-                    }
-                  ]
-                },
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "logs:PutLogEvents"
-                  ],
-                  "Resource": [
-                    {
-                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/sq_mod_func_lambda:*:*"
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        ],
-        "Path": "/",
-        "RoleName": {
-          "Fn::Join": [
-            "-",
-            [
-              "sq-module-service",
-              "dev",
-              {
-                "Ref": "AWS::Region"
-              },
-              "lambdaRole"
-            ]
-          ]
-        }
-      }
-    },
-    "SqDashmoduleDashfuncLambdaFunction": {
-      "Type": "AWS::Lambda::Function",
-      "Properties": {
-        "Code": {
-          "ImageUri": "555726677657.dkr.ecr.us-east-1.amazonaws.com/sq-module@sha256:c89c9bc1d696d7f55139e0d163f507257287baff17110b920f30a69209605ca7"
-        },
-        "PackageType": "Image",
-        "FunctionName": "sq_mod_func_lambda",
-        "MemorySize": 3008,
-        "Timeout": 6,
-        "Tags": [
-          {
-            "Key": "createdBy",
-            "Value": "Vijay"
-          },
-          {
-            "Key": "Environment",
-            "Value": "sandbox"
-          }
-        ],
-        "EphemeralStorage": {
-          "Size": 3096
-        },
-        "Environment": {
-          "Variables": {
-            "APP_PORT": "3002",
-            "APP_NAME": "sq-module-from-ssm"
-          }
-        },
-        "Role": {
-          "Fn::GetAtt": [
-            "IamRoleLambdaExecution",
-            "Arn"
-          ]
-        }
-      },
-      "DependsOn": [
-        "SqDashmoduleDashfuncLogGroup"
-      ]
-    },
-    "SqDashmoduleDashfuncLambdaVersioneLPLlJg8PoRDfCSTZwh3jKNl6nONx7xgUDWQbtoJ3h8": {
-      "Type": "AWS::Lambda::Version",
-      "DeletionPolicy": "Retain",
-      "Properties": {
-        "FunctionName": {
-          "Ref": "SqDashmoduleDashfuncLambdaFunction"
-        },
-        "CodeSha256": "c89c9bc1d696d7f55139e0d163f507257287baff17110b920f30a69209605ca7"
-      }
-    }
-  },
-  "Outputs": {
-    "ServerlessDeploymentBucketName": {
-      "Value": {
-        "Ref": "ServerlessDeploymentBucket"
-      },
-      "Export": {
-        "Name": "sls-sq-module-service-dev-ServerlessDeploymentBucketName"
-      }
-    },
-    "SqDashmoduleDashfuncLambdaFunctionQualifiedArn": {
-      "Description": "Current Lambda function version",
-      "Value": {
-        "Ref": "SqDashmoduleDashfuncLambdaVersioneLPLlJg8PoRDfCSTZwh3jKNl6nONx7xgUDWQbtoJ3h8"
-      },
-      "Export": {
-        "Name": "sls-sq-module-service-dev-SqDashmoduleDashfuncLambdaFunctionQualifiedArn"
-      }
-    }
-  }
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Description": "The AWS CloudFormation template for this Serverless application",
+	"Resources": {
+		"ServerlessDeploymentBucket": {
+			"Type": "AWS::S3::Bucket",
+			"Properties": {
+				"BucketEncryption": {
+					"ServerSideEncryptionConfiguration": [
+						{
+							"ServerSideEncryptionByDefault": {
+								"SSEAlgorithm": "AES256"
+							}
+						}
+					]
+				}
+			}
+		},
+		"ServerlessDeploymentBucketPolicy": {
+			"Type": "AWS::S3::BucketPolicy",
+			"Properties": {
+				"Bucket": {
+					"Ref": "ServerlessDeploymentBucket"
+				},
+				"PolicyDocument": {
+					"Statement": [
+						{
+							"Action": "s3:*",
+							"Effect": "Deny",
+							"Principal": "*",
+							"Resource": [
+								{
+									"Fn::Join": [
+										"",
+										[
+											"arn:",
+											{
+												"Ref": "AWS::Partition"
+											},
+											":s3:::",
+											{
+												"Ref": "ServerlessDeploymentBucket"
+											},
+											"/*"
+										]
+									]
+								},
+								{
+									"Fn::Join": [
+										"",
+										[
+											"arn:",
+											{
+												"Ref": "AWS::Partition"
+											},
+											":s3:::",
+											{
+												"Ref": "ServerlessDeploymentBucket"
+											}
+										]
+									]
+								}
+							],
+							"Condition": {
+								"Bool": {
+									"aws:SecureTransport": false
+								}
+							}
+						}
+					]
+				}
+			}
+		},
+		"SqDashmoduleDashfuncLogGroup": {
+			"Type": "AWS::Logs::LogGroup",
+			"Properties": {
+				"LogGroupName": "/aws/lambda/sq_mod_func_lambda",
+				"RetentionInDays": 14
+			}
+		},
+		"IamRoleLambdaExecution": {
+			"Type": "AWS::IAM::Role",
+			"Properties": {
+				"AssumeRolePolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Principal": {
+								"Service": ["lambda.amazonaws.com"]
+							},
+							"Action": ["sts:AssumeRole"]
+						}
+					]
+				},
+				"Policies": [
+					{
+						"PolicyName": {
+							"Fn::Join": ["-", ["sq-module-service", "dev", "lambda"]]
+						},
+						"PolicyDocument": {
+							"Version": "2012-10-17",
+							"Statement": [
+								{
+									"Effect": "Allow",
+									"Action": ["logs:CreateLogStream", "logs:CreateLogGroup"],
+									"Resource": [
+										{
+											"Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/sq_mod_func_lambda:*"
+										}
+									]
+								},
+								{
+									"Effect": "Allow",
+									"Action": ["logs:PutLogEvents"],
+									"Resource": [
+										{
+											"Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/sq_mod_func_lambda:*:*"
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"Path": "/",
+				"RoleName": {
+					"Fn::Join": [
+						"-",
+						[
+							"sq-module-service",
+							"dev",
+							{
+								"Ref": "AWS::Region"
+							},
+							"lambdaRole"
+						]
+					]
+				}
+			}
+		},
+		"SqDashmoduleDashfuncLambdaFunction": {
+			"Type": "AWS::Lambda::Function",
+			"Properties": {
+				"Code": {
+					"ImageUri": "555726677657.dkr.ecr.us-east-1.amazonaws.com/sq-module@sha256:c89c9bc1d696d7f55139e0d163f507257287baff17110b920f30a69209605ca7"
+				},
+				"PackageType": "Image",
+				"FunctionName": "sq_mod_func_lambda",
+				"MemorySize": 3008,
+				"Timeout": 6,
+				"Tags": [
+					{
+						"Key": "createdBy",
+						"Value": "Vijay"
+					},
+					{
+						"Key": "Environment",
+						"Value": "sandbox"
+					}
+				],
+				"EphemeralStorage": {
+					"Size": 3096
+				},
+				"Environment": {
+					"Variables": {
+						"APP_PORT": "3002",
+						"APP_NAME": "sq-module-from-ssm"
+					}
+				},
+				"Role": {
+					"Fn::GetAtt": ["IamRoleLambdaExecution", "Arn"]
+				}
+			},
+			"DependsOn": ["SqDashmoduleDashfuncLogGroup"]
+		},
+		"SqDashmoduleDashfuncLambdaVersioneLPLlJg8PoRDfCSTZwh3jKNl6nONx7xgUDWQbtoJ3h8": {
+			"Type": "AWS::Lambda::Version",
+			"DeletionPolicy": "Retain",
+			"Properties": {
+				"FunctionName": {
+					"Ref": "SqDashmoduleDashfuncLambdaFunction"
+				},
+				"CodeSha256": "c89c9bc1d696d7f55139e0d163f507257287baff17110b920f30a69209605ca7"
+			}
+		}
+	},
+	"Outputs": {
+		"ServerlessDeploymentBucketName": {
+			"Value": {
+				"Ref": "ServerlessDeploymentBucket"
+			},
+			"Export": {
+				"Name": "sls-sq-module-service-dev-ServerlessDeploymentBucketName"
+			}
+		},
+		"SqDashmoduleDashfuncLambdaFunctionQualifiedArn": {
+			"Description": "Current Lambda function version",
+			"Value": {
+				"Ref": "SqDashmoduleDashfuncLambdaVersioneLPLlJg8PoRDfCSTZwh3jKNl6nONx7xgUDWQbtoJ3h8"
+			},
+			"Export": {
+				"Name": "sls-sq-module-service-dev-SqDashmoduleDashfuncLambdaFunctionQualifiedArn"
+			}
+		}
+	}
 }

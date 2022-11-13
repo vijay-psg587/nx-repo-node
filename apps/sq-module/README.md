@@ -16,11 +16,10 @@
 -   This will make use of `serverless` framework for deployment
 -   Resources in aws are created via some IaC providers like terraform/cloudformation/cdk, but that is not covered in this
 
-  ####Serverless
-    - Connect your aws with serverless serverless config credentials \
-      --provider aws \
-      --key AKIAIOSFODNN7EXAMPLE \
-      --secret wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+####Serverless - Connect your aws with serverless serverless config credentials \
+ --provider aws \
+ --key AKIAIOSFODNN7EXAMPLE \
+ --secret wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 
 ### **Debugging**
 
@@ -70,13 +69,13 @@ Refer[localstack readme](localstack_Readme.md)
 
 ### Publish Docker Image
 
-- First create the image of sq-module using the [./build/build.sh]build.sh  file. Run ```npm run build:docker:nx:sq-module:prod```
-- Login to aws ecr ```aws ecr get-login-password --region {region} | docker login --username AWS --password-stdin {aws_account_id}.dkr.ecr.{region}.amazonaws.com``` (use username as AWS)
-- To Do an interative login - ```docker login -u AWS -p $(aws ecr get-login-password --region the-region-you-are-in){aws_account_id}.dkr.ecr.{region}.amazonaws.com```
-- Tag the image to the Repo URI
-- Push the image -  all using docker
+-   First create the image of sq-module using the [./build/build.sh]build.sh file. Run `npm run build:docker:nx:sq-module:prod`
+-   Login to aws ecr `aws ecr get-login-password --region {region} | docker login --username AWS --password-stdin {aws_account_id}.dkr.ecr.{region}.amazonaws.com` (use username as AWS)
+-   To Do an interative login - `docker login -u AWS -p $(aws ecr get-login-password --region the-region-you-are-in){aws_account_id}.dkr.ecr.{region}.amazonaws.com`
+-   Tag the image to the Repo URI
+-   Push the image - all using docker
 
-> Note: To login to a docker image use ```docker run --rm -it --entrypoint bash <image-name-or-id>```
+> Note: To login to a docker image use `docker run --rm -it --entrypoint bash <image-name-or-id>`
 
 TODO:
 
